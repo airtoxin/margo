@@ -25,9 +25,9 @@ export const useGame = () => {
 
   const startAutoPlayEffect = useCallback(() => {
     const id = setTimeout(() => {
-      if (Math.random() < 0.1) {
-        return handleClickPassTurn();
-      }
+      // if (Math.random() < 0.1) {
+      //   return handleClickPassTurn();
+      // }
       const playableCells = enumerateBoard(board).filter(cell =>
         canPlay(board, cell)
       );
@@ -36,7 +36,7 @@ export const useGame = () => {
           playableCells[Math.floor(Math.random() * playableCells.length)];
         handleClickCell(playableCell)();
       }
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
