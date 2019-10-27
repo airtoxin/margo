@@ -1,13 +1,13 @@
 import React from "react";
 import "./styles.css";
-import { useReduxState } from "../../hooks/useReduxState";
+import { useGame } from "./hooks";
 
 export interface Props {
   size: number;
 }
 
 export const Game: React.FunctionComponent<Props> = ({ size }) => {
-  const board = useReduxState(s => s.game.board);
+  const { board, handleClickCell } = useGame();
 
   return (
     <div className="board">
@@ -26,14 +26,14 @@ export const Game: React.FunctionComponent<Props> = ({ size }) => {
               {row.map(cell => (
                 <div
                   key={`${cell.x}_${cell.y}`}
-                  className={`cell isVisible-${cell.isVisible}`}
-                  onClick={() => console.log(stage, cell)}
+                  className={`cell status-${cell.status}`}
+                  onClick={handleClickCell(cell)}
                 >
-                  {!cell.marble ? (
+                  {cell.status === "playable" ? (
                     <div className="point" />
-                  ) : (
-                    <div className={`marble ${cell.marble}`} />
-                  )}
+                  ) : cell.status === "black" || cell.status === "white" ? (
+                    <div className={`marble ${cell.status}`} />
+                  ) : null}
                 </div>
               ))}
             </div>
