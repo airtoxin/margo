@@ -1,24 +1,17 @@
-import React, { useMemo } from "react";
+import React from "react";
 import "./styles.css";
+import { useReduxState } from "../../hooks/useReduxState";
 
 export interface Props {
   size: number;
 }
 
 export const Game: React.FunctionComponent<Props> = ({ size }) => {
-  const stages = useMemo(
-    () =>
-      [...Array(size)].map((_, stage) =>
-        [...Array(size - stage)].map((_, y) =>
-          [...Array(size - stage)].map((_, x) => ({ x, y }))
-        )
-      ),
-    [size]
-  );
+  const board = useReduxState(s => s.game.board);
 
   return (
     <div className="board">
-      {stages.map((cells, stage) => (
+      {board.map((cells, stage) => (
         <div
           key={Math.random()}
           className={`stage ${stage === 0 && "zero"}`}
@@ -33,10 +26,14 @@ export const Game: React.FunctionComponent<Props> = ({ size }) => {
               {row.map(cell => (
                 <div
                   key={`${cell.x}_${cell.y}`}
-                  className="cell"
+                  className={`cell isVisible-${cell.isVisible}`}
                   onClick={() => console.log(stage, cell)}
                 >
-                  <div className="point" />
+                  {!cell.marble ? (
+                    <div className="point" />
+                  ) : (
+                    <div className={`marble ${cell.marble}`} />
+                  )}
                 </div>
               ))}
             </div>

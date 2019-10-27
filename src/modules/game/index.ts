@@ -14,6 +14,7 @@ export interface Cell {
   x: number;
   y: number;
   isVisible: boolean;
+  marble?: "black" | "white";
 }
 
 const initialState = {
@@ -27,7 +28,8 @@ export const game: Reducer<GameState, GameAction> = (
 ) => {
   switch (action.type) {
     case "game/changeBoardSize": {
-      return { ...state, boardSize: action.payload.boardSize };
+      const boardSize = action.payload.boardSize;
+      return { ...state, boardSize, board: createBoard(boardSize) };
     }
     default:
       return state;

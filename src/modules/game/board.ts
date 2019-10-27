@@ -7,7 +7,13 @@ export const createBoard = (boardSize: number): Board =>
         stage,
         x,
         y,
-        isVisible: Math.random() < 0.5
+        isVisible: stage === 0,
+        marble:
+          Math.random() > 0.5
+            ? undefined
+            : Math.random() < 0.25
+            ? "black"
+            : "white"
       }))
     )
   );
