@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 import { useGame } from "./hooks";
 
@@ -7,7 +7,8 @@ export interface Props {
 }
 
 export const Game: React.FunctionComponent<Props> = ({ size }) => {
-  const { board, handleClickCell } = useGame();
+  const { board, handleClickCell, startAutoPlayEffect } = useGame();
+  useEffect(startAutoPlayEffect, [startAutoPlayEffect]);
 
   return (
     <div className="board">

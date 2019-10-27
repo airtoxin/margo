@@ -98,3 +98,6 @@ export const placeMarble = (
       ].status = "playable";
     }
   });
+
+export const enumerateBoard = (board: Board): Cell[] =>
+  board.flatMap(stage => stage.flat());
