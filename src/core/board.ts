@@ -13,7 +13,7 @@ export const createBoard = (boardSize: number): Board =>
     )
   );
 
-const getCell = (board: Board, place: Place): Cell | undefined => {
+export const getCell = (board: Board, place: Place): Cell | undefined => {
   const stage = board[place.stage];
   if (stage) {
     const row = stage[place.y];

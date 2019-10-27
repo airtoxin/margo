@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { GameAction } from "./actions";
-import { createBoard, placeMarble } from "../../core/board";
+import { createBoard, enumerateBoard, placeMarble } from "../../core/board";
 import { GameState, initialState } from "./state";
 
 export const game: Reducer<GameState, GameAction> = (
@@ -23,18 +23,31 @@ export const game: Reducer<GameState, GameAction> = (
         return state;
       }
 
+      const board = placeMarble(
+        state.board,
+        {
+          stage: action.payload.place.stage,
+          y: action.payload.place.y,
+          x: action.payload.place.x
+        },
+        state.status
+      );
+      const playableCells = enumerateBoard(board).filter(
+        cell => cell.status === "playable"
+      );
+      const nextTurnMarbleType = state.status === "white" ? "black" : "white";
+      const status = playableCells.length === 0 ? "end" : nextTurnMarbleType;
+
       return {
         ...state,
-        status: state.status === "white" ? "black" : "white",
-        board: placeMarble(
-          state.board,
-          {
-            stage: action.payload.place.stage,
-            y: action.payload.place.y,
-            x: action.payload.place.x
-          },
-          state.status
-        )
+        status,
+        board
+      };
+    }
+    case "game/passTurn": {
+      return {
+        ...state,
+        status: state.status === "white" ? "black" : "white"
       };
     }
     default:
