@@ -1,5 +1,5 @@
-import { Board } from "./types";
-import { createBoard } from "./board";
+import { Board } from "../../core/types";
+import { createBoard } from "../../core/board";
 
 export interface GameState {
   boardSize: number;

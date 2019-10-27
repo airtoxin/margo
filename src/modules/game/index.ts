@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { GameAction } from "./actions";
-import { createBoard, placeMarble } from "./board";
+import { createBoard, placeMarble } from "../../core/board";
 import { GameState, initialState } from "./state";
 
 export const game: Reducer<GameState, GameAction> = (

@@ -1,4 +1,4 @@
-import { Place } from "./types";
+import { Place } from "../../core/types";
 
 export type GameAction = ReturnType<typeof changeBoardSize | typeof setMarble>;
 

@@ -2,7 +2,7 @@ import { useReduxState } from "../../hooks/useReduxState";
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 import { setMarble } from "../../modules/game/actions";
-import { Cell } from "../../modules/game/types";
+import { Cell } from "../../core/types";
 
 export const useGame = () => {
   const board = useReduxState(s => s.game.board);
